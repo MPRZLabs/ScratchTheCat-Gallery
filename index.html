@@ -17,13 +17,23 @@
       function makeSkipButton() {
         return lelouch = $("<a>Skip the DRM</a>").attr("href","http://defectivebydesign.org/action").attr("role","button").addClass("btn btn-lg btn-danger");
       }
+      function makeNextButton(text,func) {
+        return $("<a>"+text+"</a>").attr("role","button").attr("href","#").attr("onClick",func).addClass("btn btn-lg btn-primary");
+      }
       function makeKnightmare() {
         var knightmare = $("<div />");
         knightmare.addClass("jumbotron");
         knightmare.css("display","none");
         return knightmare;
       }
+      function makeFakeFormField(name) {
+        var div = $("<div />").addClass("form-group");
+        div.append($("<label>"+name+"</label>"));
+        div.append($("<input>").attr("disabled","disabled").addClass("form-control").attr("type","password").attr("value","83798375879827543569586").attr("placeholder",name));
+        return div;
+      }
       function launchKF(kf) {
+        $(".jumbotron").slideUp();
         kf.append(makeSkipButton());
         $(".container").append(kf);
         kf.slideDown();
@@ -31,25 +41,32 @@
       function installPlugin() {
         var knightmare = makeKnightmare();
         knightmare.append($("<h1>You need to log in to use the plugin.</h1>"));
-        knightmare.append($("<a>Log in</a>").attr("role","button").attr("href","#").attr("onClick","logIn()").addClass("btn btn-lg btn-primary"));
+        knightmare.append(makeNextButton("Log in","logIn()"));
         launchKF(knightmare);
       }
       function logIn() {
         var knightmare = makeKnightmare();
         knightmare.append($("<h1>We already filled your login form</h1>"));
         knightmare.append($("<p>Thanks to our amazing deal with PRISM, we already fetched your personal data and you can continue immediately.</p>").addClass("lead"));
-        knightmare.append($("<label>First name</label>"));
-        knightmare.append($("<input>").attr("type","password").attr("value","83798375879827543569586"));
-        knightmare.append($("<label>Last name</label>"));
-        knightmare.append($("<input>").attr("type","password").attr("value","83798375879827543569586"));
-        knightmare.append($("<label>Address</label>"));
-        knightmare.append($("<input>").attr("type","password").attr("value","83798375879827543569586"));
-        knightmare.append($("<label>Credit card</label>"));
-        knightmare.append($("<input>").attr("type","password").attr("value","83798375879827543569586"));
-        knightmare.append($("<label>Username</label>"));
-        knightmare.append($("<input>").attr("type","password").attr("value","83798375879827543569586"));
-        knightmare.append($("<label>Password</label>"));
-        knightmare.append($("<input>").attr("type","password").attr("value","83798375879827543569586"));
+        var form = $("<form />").attr("role","form");
+        form.append(makeFakeFormField("First name"));
+        form.append(makeFakeFormField("Last name"));
+        form.append(makeFakeFormField("Street name"));
+        form.append(makeFakeFormField("City"));
+        form.append(makeFakeFormField("Postal/ZIP code"));
+        form.append(makeFakeFormField("Credit card number"));
+        form.append(makeFakeFormField("CVC2/CVV2"));
+        form.append(makeFakeFormField("Username"));
+        form.append(makeFakeFormField("Password"));
+        knightmare.append(form);
+        knightmare.append(makeNextButton("Complete login","completeLogin()"));
+        launchKF(knightmare);
+      }
+      function completeLogin() {
+        var knightmare = makeKnightmare();
+        knightmare.append($("<h1>Oh no! Something went wrong.</h1>"));
+        knightmare.append($("<p>You just let a random site on the web install a DRM plugin on your dear PC! Shame!</p>").addClass("lead"));
+        knightmare.append($("<p>Do not continue. Do something about the DRM. Because it's wrong.</p>").addClass("lead"));
         launchKF(knightmare);
       }
       
