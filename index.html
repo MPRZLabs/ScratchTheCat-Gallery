@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Scratch Browser</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h1>This photo cannot be viewed without special DRM plugin that needs to be installed now.</h1>
+        <a role="button" class="btn btn-lg btn-primary" href="#" onClick="installPlugin()">Install plugin</a>
+      </div>
+    </div>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      function makeSkipButton() {
+        return lelouch = $("<a>Skip the DRM</a>").attr("href","http://defectivebydesign.org/action").attr("role","button").addClass("btn btn-lg btn-danger");
+      }
+      function makeKnightmare() {
+        var knightmare = $("<div />");
+        knightmare.addClass("jumbotron");
+        knightmare.css("display","none");
+        return knightmare;
+      }
+      function launchKF(kf) {
+        kf.append(makeSkipButton());
+        $(".container").append(kf);
+        kf.slideDown();
+      }
+      function installPlugin() {
+        var knightmare = makeKnightmare();
+        knightmare.append($("<h1>You need to log in to use the plugin.</h1>"));
+        knightmare.append($("<a>Log in</a>").attr("role","button").attr("href","#").attr("onClick","logIn()").addClass("btn btn-lg btn-primary"));
+        launchKF(knightmare);
+      }
+      function logIn() {
+        var knightmare = makeKnightmare();
+        knightmare.append($("<h1>We already filled your login form</h1>"));
+        knightmare.append($("<p>Thanks to our amazing deal with PRISM, we already fetched your personal data and you can continue immediately.</p>").addClass("lead"));
+        knightmare.append($("<label>First name</label>"));
+        knightmare.append($("<input>").attr("type","password").attr("value","83798375879827543569586"));
+        knightmare.append($("<label>Last name</label>"));
+        knightmare.append($("<input>").attr("type","password").attr("value","83798375879827543569586"));
+        knightmare.append($("<label>Address</label>"));
+        knightmare.append($("<input>").attr("type","password").attr("value","83798375879827543569586"));
+        knightmare.append($("<label>Credit card</label>"));
+        knightmare.append($("<input>").attr("type","password").attr("value","83798375879827543569586"));
+        knightmare.append($("<label>Username</label>"));
+        knightmare.append($("<input>").attr("type","password").attr("value","83798375879827543569586"));
+        knightmare.append($("<label>Password</label>"));
+        knightmare.append($("<input>").attr("type","password").attr("value","83798375879827543569586"));
+        launchKF(knightmare);
+      }
+      
+      makeSkipButton().appendTo(".jumbotron");
+    </script>
+  </body>
+</html>
